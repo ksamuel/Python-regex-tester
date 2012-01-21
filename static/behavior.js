@@ -39,7 +39,9 @@ $(function(){
          window.clearTimeout(typing_timer);
       }
       typing_timer = window.setTimeout(function(){
-        $('form').submit();
+        if (!$("textarea").is(":focus")) {
+            $('form').submit();
+        }
       }, 1000);
    });
 
@@ -58,18 +60,18 @@ $(function(){
    $('input[name=function]').change();
 
    $('div.text').live('click select', function(e){
-      $('textarea.text').removeClass('hide');
+      $('textarea').removeClass('hide');
       $('div.text').addClass('hide');
-      $('textarea.text').focus()
+      $('textarea').focus()
    });
 
    var populate_text_div = function(){
 
-      $('textarea.text').addClass('hide');
+      $('textarea').addClass('hide');
       $('div.text').removeClass('hide');
       $('div.text').text(string);
 
-      var string = $('textarea.text').val();
+      var string = $('textarea').val();
 
       var markers = eval($('#markers').text());
 
@@ -107,12 +109,12 @@ $(function(){
    }
 
    $('body').click(function(){
-      if (!$('textarea.text').hasClass('hide')) {
+      if (!$('textarea').hasClass('hide')) {
         $('form').submit();
       }
    });
 
-   $('textarea.text').click(function(event){
+   $('textarea').click(function(event){
       event.stopPropagation();
    });
 
