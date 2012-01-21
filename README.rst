@@ -33,7 +33,7 @@ It uses:
 All of them are already provided, the whole things is less than 500 ko.
 
 
-What is lacks
+What it lacks
 =============
 
 - some love: design is not the strong point of the product
