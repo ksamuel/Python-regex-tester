@@ -33,10 +33,8 @@ h1 {
 
 #flags {
     padding:0;
-    margin:0;
-    margin-left: 6%;
+    margin: 1em 0 1.5em 6%;
     font-size:12px;
-    margin-bottom:4em;
 }
 
 #flags dd {
@@ -100,13 +98,13 @@ textarea.text {
     display:none;
 }
 
-#footer p {
+footer p {
     text-align:center;
     margin:0;
     font-style:italic;
     font-size:10px;
 }
 
-#footer a {
+footer a {
     color:grey;
 }

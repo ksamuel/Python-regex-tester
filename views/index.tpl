@@ -82,86 +82,88 @@
         <input autocomplete="off" type="text" name="regex" value="{{ regex }}" >
     </p>
 
-    <div id='flags'>
+    <details id='flags'>
 
-    <p>With flags:</p>
+        <summary>Flags</summary>
 
-    <dl>
-        <dt>
-            <input {{ 'checked="checked"' if IGNORECASE else '' }}
-                   type="checkbox" name="IGNORECASE" id='IGNORECASE'>
-            <label for="IGNORECASE">re.IGNORECASE, re.I</label>
-        </dt>
-        <dd>
-            Perform case-insensitive matching; expressions like [A-Z] will match
-            lowercase letters, too. This is not affected by the current locale.
-        </dd>
-        <dt>
-            <input {{ 'checked="checked"' if LOCALE else '' }}
-                   type="checkbox" name="LOCALE" id='LOCALE'>
-            <label for="LOCALE">re.LOCALE, re.L</label>
-        </dt>
-        <dd>
-            Make \w, \W, \b, \B, \s and \S
-            dependent on the current locale.
+        <dl>
+            <dt>
+                <input {{ 'checked="checked"' if IGNORECASE else '' }}
+                       required placeholder='E.G: (\d+) years'
+                       type="checkbox" name="IGNORECASE" id='IGNORECASE'>
+                <label for="IGNORECASE">re.IGNORECASE, re.I</label>
+            </dt>
+            <dd>
+                Perform case-insensitive matching; expressions like [A-Z] will match
+                lowercase letters, too. This is not affected by the current locale.
             </dd>
-        <dt>
-            <input {{ 'checked="checked"' if MULTILINE else '' }}
-                   type="checkbox" name="MULTILINE" id='MULTILINE'>
-            <label for="MULTILINE">re.MULTILINE, re.M</label>
-        </dt>
-        <dd>
-            When specified, the pattern character '^' matches at
-            the beginning of the string and at the beginning of each line (immediately
-            following each newline); and the pattern character '$' matches at the end of the
-            string and at the end of each line (immediately preceding each newline). By
-            default, '^' matches only at the beginning of the string, and '$' only at the
-            end of the string and immediately before the newline (if any) at the end of the
-            string.
-        </dd>
-        <dt>
-            <input {{ 'checked="checked"' if DOTALL else '' }}
-                   type="checkbox" name="DOTALL" id='DOTALL'>
-            <label for="DOTALL">re.DOTALL, re.S</label>
-        </dt>
-        <dd>
-            Make the '.' special character
-            match any character at all, including a newline; without this flag, '.' will
-            match anything except a newline.
-        </dd>
-        <dt>
-            <input {{ 'checked="checked"' if UNICODE else '' }}
-                   type="checkbox" name="UNICODE" id='UNICODE'>
-            <label for="UNICODE">re.UNICODE, re.U</label>
-        </dt>
-        <dd>
-            Make \w, \W, \b, \B, \d, \D, \s and \S dependent on the Unicode character
-            properties database.
-        </dd>
-        <dt>
-            <input {{ 'checked="checked"' if VERBOSE else '' }}
-                   type="checkbox" name="VERBOSE" id='VERBOSE'>
-            <label for="VERBOSE">re.VERBOSE, re.X</label>
-        </dt>
-        <dd>
-        This flag allows you to write regular expressions that look nicer.
-        Whitespace within
-        the pattern is ignored, except when in a character class or preceded by an
-        unescaped backslash, and, when a line contains a '#' neither in a character
-        class or preceded by an unescaped backslash, all characters from the leftmost
-        such '#' through the end of the line are ignored.
+            <dt>
+                <input {{ 'checked="checked"' if LOCALE else '' }}
+                       type="checkbox" name="LOCALE" id='LOCALE'>
+                <label for="LOCALE">re.LOCALE, re.L</label>
+            </dt>
+            <dd>
+                Make \w, \W, \b, \B, \s and \S
+                dependent on the current locale.
+                </dd>
+            <dt>
+                <input {{ 'checked="checked"' if MULTILINE else '' }}
+                       type="checkbox" name="MULTILINE" id='MULTILINE'>
+                <label for="MULTILINE">re.MULTILINE, re.M</label>
+            </dt>
+            <dd>
+                When specified, the pattern character '^' matches at
+                the beginning of the string and at the beginning of each line (immediately
+                following each newline); and the pattern character '$' matches at the end of the
+                string and at the end of each line (immediately preceding each newline). By
+                default, '^' matches only at the beginning of the string, and '$' only at the
+                end of the string and immediately before the newline (if any) at the end of the
+                string.
+            </dd>
+            <dt>
+                <input {{ 'checked="checked"' if DOTALL else '' }}
+                       type="checkbox" name="DOTALL" id='DOTALL'>
+                <label for="DOTALL">re.DOTALL, re.S</label>
+            </dt>
+            <dd>
+                Make the '.' special character
+                match any character at all, including a newline; without this flag, '.' will
+                match anything except a newline.
+            </dd>
+            <dt>
+                <input {{ 'checked="checked"' if UNICODE else '' }}
+                       type="checkbox" name="UNICODE" id='UNICODE'>
+                <label for="UNICODE">re.UNICODE, re.U</label>
+            </dt>
+            <dd>
+                Make \w, \W, \b, \B, \d, \D, \s and \S dependent on the Unicode character
+                properties database.
+            </dd>
+            <dt>
+                <input {{ 'checked="checked"' if VERBOSE else '' }}
+                       type="checkbox" name="VERBOSE" id='VERBOSE'>
+                <label for="VERBOSE">re.VERBOSE, re.X</label>
+            </dt>
+            <dd>
+            This flag allows you to write regular expressions that look nicer.
+            Whitespace within
+            the pattern is ignored, except when in a character class or preceded by an
+            unescaped backslash, and, when a line contains a '#' neither in a character
+            class or preceded by an unescaped backslash, all characters from the leftmost
+            such '#' through the end of the line are ignored.
 
-        That means that the two following regular expression objects that match a decimal
-         number are functionally equal:
+            That means that the two following regular expression objects that match a decimal
+             number are functionally equal:
 
-        a = re.compile(r"""\d +  # the integral part
-                           \.    # the decimal point
-                           \d *  # some fractional digits""", re.X)
-        b = re.compile(r"\d+\.\d*")
-        </dd>
-    </dl>
+            a = re.compile(r"""\d +  # the integral part
+                               \.    # the decimal point
+                               \d *  # some fractional digits""", re.X)
+            b = re.compile(r"\d+\.\d*")
+            </dd>
+        </dl>
 
-    </div>
+     </details>
+
 
 </div>
 
@@ -172,7 +174,8 @@
 
 <p id='text'>
     <label for="text">Apply regex to: </label><br >
-    <textarea name="text" class="text">{{ text }}</textarea>
+    <textarea name="text" class="text" required>
+              {{ text }}</textarea>
     <div class="text hide">{{ text }}</div>
 </p>
 
@@ -661,7 +664,7 @@ octal escapes are always at most three digits in length.&lt;<br>
 <div id='tooltip'>
 </div><!-- / -->
 
-<div id="footer">
+<footer>
     <p>
         The <a href="http://www.python.org/">Python</a> regex tester use
         <a href="http://bottlepy.org">Bottle</a>,
@@ -676,7 +679,7 @@ octal escapes are always at most three digits in length.&lt;<br>
         <a href="http://yeleman.com">Yeleman</a>,
         data collection experts from West Africa
     </p>
-</div><!-- / -->
+</footer><!-- / -->
 
 </div>
 

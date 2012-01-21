@@ -32,6 +32,7 @@ It uses:
 
 All of them are already provided, the whole things is less than 500 ko.
 
+Since the project was initially only for us to use, it's taking advantages of a few advanced CSS selectors and some HTML 5 goodies. Make sure you have an up to date browser.
 
 What it lacks
 =============
