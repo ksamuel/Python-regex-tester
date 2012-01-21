@@ -25,13 +25,15 @@ $(function(){
 
    $('form').bind('submit', function(e){
 
-        e.preventDefault();
+      if (!$("textarea").is(":focus")) {
 
         $.post('/', $('form').serializeArray(this), function(data) {
             $('#result').replaceWith($(data).find('#result'));
             populate_text_div()
         }, 'html');
-        return false;
+
+      }
+      return false;
    });
 
    $('input[type=text]').live('keyup', function(){
@@ -39,10 +41,8 @@ $(function(){
          window.clearTimeout(typing_timer);
       }
       typing_timer = window.setTimeout(function(){
-        if (!$("textarea").is(":focus")) {
-            $('form').submit();
-        }
-      }, 1000);
+        $('form').submit();
+      }, 500);
    });
 
    $('input').live('change', function(){
@@ -59,19 +59,19 @@ $(function(){
 
    $('input[name=function]').change();
 
-   $('div.text').live('click select', function(e){
-      $('textarea').removeClass('hide');
+   $('div.text').live('click', function(e){
+      $('textarea.text').removeClass('hide');
       $('div.text').addClass('hide');
-      $('textarea').focus()
+      $('textarea.text').focus()
    });
 
    var populate_text_div = function(){
 
-      $('textarea').addClass('hide');
+      $('textarea.text').addClass('hide');
       $('div.text').removeClass('hide');
       $('div.text').text(string);
 
-      var string = $('textarea').val();
+      var string = $('textarea.text').val();
 
       var markers = eval($('#markers').text());
 
@@ -109,12 +109,12 @@ $(function(){
    }
 
    $('body').click(function(){
-      if (!$('textarea').hasClass('hide')) {
+      if (!$('textarea.text').hasClass('hide')) {
         $('form').submit();
       }
    });
 
-   $('textarea').click(function(event){
+   $('textarea.text').click(function(event){
       event.stopPropagation();
    });
 
