@@ -100,3 +100,13 @@ textarea.text {
     display:none;
 }
 
+#footer p {
+    text-align:center;
+    margin:0;
+    font-style:italic;
+    font-size:10px;
+}
+
+#footer a {
+    color:grey;
+}

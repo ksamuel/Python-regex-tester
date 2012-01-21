@@ -222,6 +222,13 @@
 
 <div id="help">
 
+<p>
+    From the official
+    <a href="http://docs.python.org/library/re.html">
+        Python documentation page on regular expressions
+    </a>:
+</p>
+
 <table style="text-align: left; width: 100%;" border="1" cellpadding="2"
 cellspacing="2">
 <tbody>
@@ -652,6 +659,23 @@ octal escapes are always at most three digits in length.&lt;<br>
 </div>
 
 <div id='tooltip'>
+</div><!-- / -->
+
+<div id="footer">
+    <p>
+        The <a href="http://www.python.org/">Python</a> regex tester use
+        <a href="http://bottlepy.org">Bottle</a>,
+        <a href="http://blueprintcss.org/">Bluepring CSS</a>
+        and <a href="http://jquery.com/">jQuery</a> -
+        Hosted on <a href="http://pythonanywhere.com">Python Anywhere</a>
+    </p>
+    <p>
+        This program is distributed under the GPL 2:
+        <a href="">get the source</a> -
+        Brought to  you by
+        <a href="http://yeleman.com">Yeleman</a>,
+        data collection experts from West Africa
+    </p>
 </div><!-- / -->
 
 </div>
