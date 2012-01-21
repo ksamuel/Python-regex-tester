@@ -25,14 +25,13 @@ $(function(){
 
    $('form').bind('submit', function(e){
 
-      if (!$("textarea").is(":focus")) {
+      $.post('/', $('form').serializeArray(this), function(data) {
+        if (!$("textarea").is(":focus")) {
+          $('#result').replaceWith($(data).find('#result'));
+          populate_text_div();
+        }
+      }, 'html');
 
-        $.post('/', $('form').serializeArray(this), function(data) {
-            $('#result').replaceWith($(data).find('#result'));
-            populate_text_div()
-        }, 'html');
-
-      }
       return false;
    });
 
