@@ -36,7 +36,7 @@ All of them are already provided, the whole things is less than 500 ko.
 What it lacks
 =============
 
-- some love: design is not the strong point of the product
+- some love: design is not the strong point of the product. And a spiner for ajax requests would help.
 - some configuration options: it dont haz it
 - some use: I have no time to find bugs or write tests, so please use and report. I only use it in Firefox and Chrome on Ubuntu 11.10 when programming.
 - some protection: you can make it crash if you enter huge chunks of text or a pattern with agressive lookaheads
