@@ -1,0 +1,10 @@
+*~
+*.bak
+*.pyc
+*.pyo
+*.pyw
+*.log
+.*
+!.gitignore
+*.db
+local_settings.py
