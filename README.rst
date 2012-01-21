@@ -13,10 +13,10 @@ Try the demo_.
 Setup
 ======
 
-- git clone this repo
-- run regexp_tester.py
+- git clone git://github.com/ksamuel/Python-regex-tester.git regex_tester
+- cd regex_tester; python regexp_tester.py
 
-Voilà. This should open a browser with regex tester web page.
+Voilà. This should open a browser with the regex tester web page.
 
 
 Dependancies
@@ -30,7 +30,7 @@ It uses:
 - the `Blueprint CSS`_ framework
 - the jQuery_ javascript framework
 
-All of them are already provided, the whole things is less than 500 ko.
+But all of them are already provided, the whole thing being less than 500 ko.
 
 
 What it lacks
