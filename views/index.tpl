@@ -1,6 +1,11 @@
 <html>
 <head>
-    <title>Python Regex Tester</title>
+    <title>Python 2.7+ Regex Tester</title>
+
+    <meta name="keywords"
+          content="Python, regex, regexp, regular expression, tester, online, ajax" />
+    <meta name="Description"
+          content="A standalone Python 2.7 online regex tester using the Bottle framework" />
 
     <link rel="stylesheet" href="static/screen.css">
     <link rel="stylesheet" href="static/style.css">
@@ -10,7 +15,7 @@
 
 <div class="container content">
 
-<h1>Python Regex Tester for Python 2.7+</h1>
+<h1>Python 2.7+ Regex Tester</h1>
 
 <form action="." method="post" accept-charset="utf-8">
 
@@ -674,7 +679,7 @@ octal escapes are always at most three digits in length.&lt;<br>
     </p>
     <p>
         This program is distributed under the GPL 2:
-        <a href="">get the source</a> -
+        <a href="https://github.com/ksamuel/Python-regex-tester">get the source on GitHub</a> -
         Brought to  you by
         <a href="http://yeleman.com">Yeleman</a>,
         data collection experts from West Africa
