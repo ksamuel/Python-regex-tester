@@ -179,8 +179,7 @@
 
 <p id='text'>
     <label for="text">Apply regex to: </label><br >
-    <textarea name="text" class="text" required>
-              {{ text }}</textarea>
+    <textarea name="text" class="text" required>{{ text }}</textarea>
     <div class="text hide">{{ text }}</div>
 </p>
 

@@ -24,11 +24,11 @@ DEBUG = False
 
 CODES = {
     'search': """re.search(%(is_unicode)s%(is_raw)s'''%(regex)s''', %(is_unicode)s'''%(text)s'''%(flags_param)s)""",
-    'split': """re.split(ur'''%(regex)s''', %(is_unicode)s'''%(text)s'''%(flags_param)s)""",
+    'split': """re.split(%(is_unicode)s%(is_raw)s'''%(regex)s''', %(is_unicode)s'''%(text)s'''%(flags_param)s)""",
     'findall': """re.findall(%(is_unicode)s%(is_raw)s'''%(regex)s''', %(is_unicode)s'''%(text)s'''%(flags_param)s)""",
     'match': """re.match(%(is_unicode)s%(is_raw)s'''%(regex)s''', %(is_unicode)s'''%(text)s'''%(flags_param)s)""",
-    'sub': """re.sub(%(is_unicode)s%(is_raw)s'''%(regex)s''', %(is_unicode)s'''%(replace)s''', %(is_unicode)s'''%(text)s'''%(flags_param)s)""",
-    'subn': """re.subn(%(is_unicode)s%(is_raw)s'''%(regex)s''', %(is_unicode)s'''%(replace)s''', %(is_unicode)s'''%(text)s'''%(flags_param)s)""",
+    'sub': """re.sub(%(is_unicode)s%(is_raw)s'''%(regex)s''', %(is_unicode)s%(is_raw)s'''%(replace)s''', %(is_unicode)s'''%(text)s'''%(flags_param)s)""",
+    'subn': """re.subn(%(is_unicode)s%(is_raw)s'''%(regex)s''', %(is_unicode)s%(is_raw)s'''%(replace)s''', %(is_unicode)s'''%(text)s'''%(flags_param)s)""",
 }
 
 FLAGS = dict((flag, getattr(re, flag)) for flag in (
