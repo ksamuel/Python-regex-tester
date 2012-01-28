@@ -30,7 +30,9 @@ It uses:
 - the `Blueprint CSS`_ framework
 - the jQuery_ javascript framework
 
-But all of them are already provided, the whole thing being less than 500 ko.
+But all of them are already provided, the whole thing being less than 500 ko. 
+
+There is even a stand alone one file version in the static folder.
 
 Since the project was initially only for us to use, it's taking advantages of a few advanced CSS selectors and some HTML 5 goodies. Make sure you have an up to date browser.
 
@@ -43,8 +45,6 @@ What it lacks
 - some protection: you can make it crash if you enter huge chunks of text or a pattern with agressive lookaheads
 
 I do accept pull requests :-)
-
-My only plans for the future are, maybe, to create a one-file version of this tool with JS, CSS and HTML embded in the Python source code.
 
 If it ever prove stable and usefull, I may package it. But the program is so easy to start that it may be overkill.
 

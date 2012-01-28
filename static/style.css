@@ -94,8 +94,16 @@ textarea.text {
     border: 1px solid blue;
 }
 
+#submit {
+    float:left;
+}
+
 #submit a {
     display:none;
+}
+
+#download {
+    text-align:right;
 }
 
 footer p {

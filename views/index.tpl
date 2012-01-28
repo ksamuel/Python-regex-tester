@@ -225,6 +225,11 @@
     <input type="submit" name="Send" value="Send" >
     <a href='#'>help</a>
 </p>
+
+<p id='download'>
+  Too slow ?
+  <a href="/static/regex_tester.py">Download the stand alone version</a>
+</p>
 </form>
 
 <div id="help">

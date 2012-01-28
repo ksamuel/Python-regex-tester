@@ -20,7 +20,8 @@ from operator import or_
 import bottle
 from bottle import get, post, request, route, run, view, static_file
 
-DEBUG = False
+DEBUG = True
+STATIC_FILES_ROOT = os.path.join(ROOT_DIR, 'static')
 
 CODES = {
     'search': """re.search(%(is_unicode)s%(is_raw)s'''%(regex)s''', %(is_unicode)s'''%(text)s'''%(flags_param)s)""",
@@ -119,7 +120,7 @@ def index():
             else:
                 result = getattr(re, function)(pattern, text)
 
-        except Exception as e:
+        except Exception:
             result = None
             error = u'There is an error in your regular expression'
 
@@ -145,7 +146,13 @@ def index():
 
 @route('/static/<filename>')
 def server_static(filename):
-    return static_file(filename, root=os.path.join(ROOT_DIR, 'static'))
+    return static_file(filename, root=STATIC_FILES_ROOT)
+
+
+@route('/download/<filename:path>')
+def download(filename):
+    return static_file(filename, root=STATIC_FILES_ROOT, download=filename)
+
 
 if __name__ == "__main__":
     if DEBUG:
