@@ -120,6 +120,10 @@ def index():
             else:
                 result = getattr(re, function)(pattern, text)
 
+        except re.error as e:
+            result = None
+            error = u'Error in your regular expression: %s' % e
+
         except Exception:
             result = None
             error = u'There is an error in your regular expression'
