@@ -1,5 +1,5 @@
-Python regex tester for Python 2.7+
-===================================
+Python online regex tester for Python 2.7+
+==========================================
 
 This is a full featured web based Python_ regexp tester wih:
 
@@ -13,10 +13,17 @@ Try the demo_.
 Setup
 ======
 
-- git clone git://github.com/ksamuel/Python-regex-tester.git regex_tester
-- cd regex_tester; python regexp_tester.py
+The clean way::
+
+     pip install regextester
+     regex_tester
 
 Voilà. This should open a browser with the regex tester web page.
+
+It works as a stand alone app as well::
+
+     git clone git://github.com/ksamuel/Python-regex-tester.git regextester
+     cd regextester/regex_tester; python regexp_tester.py
 
 
 Dependancies

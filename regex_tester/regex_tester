@@ -11,16 +11,26 @@ import os
 import webbrowser
 import json
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(ROOT_DIR, 'libs'))
-
 from pprint import pformat
 from operator import or_
 
-import bottle
+# fiddling with the different import path if we are in stand alone mode or
+# installed
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+try:
+    import bottle
+    import regex_tester
+    ROOT_DIR = os.path.dirname(os.path.abspath(regex_tester.__file__))
+    bottle.TEMPLATE_PATH.insert(0, os.path.join(ROOT_DIR, 'views'))
+except ImportError:
+    sys.path.insert(0, os.path.join(ROOT_DIR, 'libs'))
+
+STATIC_FILES_ROOT = os.path.join(ROOT_DIR, 'static')
+
 from bottle import get, post, request, route, run, view, static_file
 
-DEBUG = True
+DEBUG = False
 STATIC_FILES_ROOT = os.path.join(ROOT_DIR, 'static')
 
 CODES = {
