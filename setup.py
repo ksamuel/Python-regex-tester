@@ -140,7 +140,7 @@ setup(
     # You can require a specific version.
     # be available in pypi
     # E.G: ["gunicorn", "docutils >= 0.3", "BeautifulSoup==1.1", "lxml==0.5a7"]
-    install_requires=["bottle"],
+    install_requires=["bottle", "envoy", "clize"],
 
 
     ###########################################################################
