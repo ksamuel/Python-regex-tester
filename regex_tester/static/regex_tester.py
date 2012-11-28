@@ -179,6 +179,7 @@ h1 {
 .text {
     width:100%;
     height:5em;
+    overflow:auto;
 }
 
 div.text {
@@ -292,7 +293,7 @@ footer a {
 
     <p>
         <label for="regex">Regex: </label>
-        <input autocomplete="off" type="text" name="regex" value="{{ regex }}" >
+        <input required autocomplete="off" type="text" name="regex" value="{{ regex }}" >
     </p>
 
     <details id='flags'>
@@ -302,7 +303,7 @@ footer a {
         <dl>
             <dt>
                 <input {{ 'checked="checked"' if IGNORECASE else '' }}
-                       required placeholder='E.G: (\d+) years'
+                       placeholder='E.G: (\d+) years'
                        type="checkbox" name="IGNORECASE" id='IGNORECASE'>
                 <label for="IGNORECASE">re.IGNORECASE, re.I</label>
             </dt>
@@ -968,7 +969,7 @@ $(function(){
    $('div.text').live('click', function(e){
       $('textarea.text').removeClass('hide');
       $('div.text').addClass('hide');
-      $('textarea.text').focus()
+      $('textarea.text').focus();
    });
 
    var populate_text_div = function(){
@@ -1000,18 +1001,22 @@ $(function(){
 
 
         var result = '';
-        var length = list.length;
-        for (var i = 0; i < length; i++) {
+        var llength= list.length;
+        for (var i = 0; i < llength; i++) {
             if (i % 2 != 0) {
-                result += '<strong>' + list[i] + '</strong>'
+                result += $("<strong></strong>").text(list[i]).wrap('<div></div>').parent().html();
             } else {
-                result += list[i];
+                result += $("<span></span>").text(list[i]).wrap('<div></div>').parent().html();
             }
         }
 
+        $('div.text').html(result || string);
+
+      } else {
+        $('div.text').html($("<span></span>").text(string).wrap('<div></div>').parent().html());
       }
 
-      $('div.text').html(result || string);
+
    }
 
    $('body').click(function(){

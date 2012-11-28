@@ -84,7 +84,7 @@
 
     <p>
         <label for="regex">Regex: </label>
-        <input autocomplete="off" type="text" name="regex" value="{{ regex }}" >
+        <input required autocomplete="off" type="text" name="regex" value="{{ regex }}" >
     </p>
 
     <details id='flags'>
@@ -94,7 +94,7 @@
         <dl>
             <dt>
                 <input {{ 'checked="checked"' if IGNORECASE else '' }}
-                       required placeholder='E.G: (\d+) years'
+                       placeholder='E.G: (\d+) years'
                        type="checkbox" name="IGNORECASE" id='IGNORECASE'>
                 <label for="IGNORECASE">re.IGNORECASE, re.I</label>
             </dt>
@@ -189,22 +189,25 @@
             {{ markers }}
     </span>
 
+    <dl id='code'>
+
     %if code:
-    <p>Code: <br >
-    <code><pre>{{ code }}</pre></code>
-    </p>
+      <dt>Code: </dt>
+      <dd>
+        <code><pre>{{ code }}</pre></code>
+      </dd>
     %end
-    %if result:
-    <dl>
-        %if hasattr(result, 'group'):
-        <dt>match.group():</dt>
-        <dd><code>{{ result.group() }}</code></dd>
-        <dt>match.groupdict():</dt>
-        <dd><code>{{ result.groupdict() }}</code></dd>
-        %else:
-        <dt>Result:</dt>
-        <dd><code>{{ result }}</code></dd>
-        %end
+
+    %if group or groupdict:
+
+      %if group:
+      <dt>match.group():</dt>
+      <dd><code>{{ group }}</code></dd>
+      %end
+      %if groupdict:
+      <dt>match.groupdict():</dt>
+      <dd><code>{{ groupdict }}</code></dd>
+      %end
 
     </dl>
     %else:
@@ -228,7 +231,9 @@
 
 <p id='download'>
   Too slow ?
-  <a href="/static/regex_tester.py">Download the stand alone version</a>
+  <a href="/static/regex_tester.py"
+  title='Nothing to install if you got Python: download, run, enjoy !'
+  >Download the one-file stand alone version</a>
 </p>
 </form>
 
@@ -677,8 +682,10 @@ octal escapes are always at most three digits in length.&lt;<br>
     <p>
         The <a href="http://www.python.org/">Python</a> regex tester use
         <a href="http://bottlepy.org">Bottle</a>,
-        <a href="http://blueprintcss.org/">Bluepring CSS</a>
-        and <a href="http://jquery.com/">jQuery</a> -
+        <a href="http://blueprintcss.org/">Bluepring CSS</a>,
+        <a href="http://jquery.com/">jQuery</a>,
+        <a href="https://github.com/epsy/clize">clize</a>
+        and <a href="https://github.com/kennethreitz/envoy">envoy</a> -
         Hosted on <a href="http://pythonanywhere.com">Python Anywhere</a>
     </p>
     <p>
@@ -688,7 +695,7 @@ octal escapes are always at most three digits in length.&lt;<br>
         <a href="http://yeleman.com">Yeleman</a>,
         data collection experts from West Africa
     </p>
-</footer><!-- / -->
+</footer>
 
 </div>
 

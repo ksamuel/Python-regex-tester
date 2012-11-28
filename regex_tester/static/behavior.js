@@ -61,7 +61,7 @@ $(function(){
    $('div.text').live('click', function(e){
       $('textarea.text').removeClass('hide');
       $('div.text').addClass('hide');
-      $('textarea.text').focus()
+      $('textarea.text').focus();
    });
 
    var populate_text_div = function(){
@@ -93,18 +93,22 @@ $(function(){
 
 
         var result = '';
-        var length = list.length;
-        for (var i = 0; i < length; i++) {
-            if (i % 2 != 0) {
-                result += '<strong>' + list[i] + '</strong>'
+        var llength= list.length;
+        for (var i = 0; i < llength; i++) {
+            if (i % 2 !== 0) {
+                result += $("<strong></strong>").text(list[i]).wrap('<div></div>').parent().html();
             } else {
-                result += list[i];
+                result += $("<span></span>").text(list[i]).wrap('<div></div>').parent().html();
             }
         }
 
+        $('div.text').html(result || string);
+
+      } else {
+        $('div.text').html($("<span></span>").text(string).wrap('<div></div>').parent().html());
       }
 
-      $('div.text').html(result || string);
+
    }
 
    $('body').click(function(){

@@ -87,20 +87,12 @@ textarea.text {
     margin-top:1.2em;
 }
 
-#code dd {
-  overflow:auto;
-}
-
 #tooltip {
     background-color:white;
     width:200px;
     display:none;
     padding:1em;
     border: 1px solid blue;
-}
-
-.error {
-margin:1em;
 }
 
 #submit {
