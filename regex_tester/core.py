@@ -28,19 +28,15 @@ except ImportError:
 
 STATIC_FILES_ROOT = os.path.join(ROOT_DIR, 'static')
 
-import envoy
-
 from clize import clize
-from bottle import get, post, request, route, run, view, static_file
+from bottle import request, run, view, static_file, Bottle
+
+from parallel import worker
 
 DEBUG = False
 TIMEOUT = 5
 STATIC_FILES_ROOT = os.path.join(ROOT_DIR, 'static')
 ENCODING = sys.stdout.encoding or 'utf-8'
-
-RUN_REGEX_SCRIPT_PARAMS = (u' --function="%(function)s" --replace="%(replace)s"'
-                           u' --isunicode="%(is_unicode)s"'
-                           u' --flags="%(flags)s" -- "%(regex)s" ')
 
 CODES = {
     'search': """re.search(%(is_unicode)s%(is_raw)s'''%(regex)s''', %(is_unicode)s'''%(text)s'''%(flags_param)s)""",
@@ -67,7 +63,7 @@ DEFAULT = {
         'is_unicode': '',
         'error': '',
         'code': '',
-        'result': None,
+        'match': None,
         'function': 'search',
         'is_unicode': 'u',
         'is_raw': 'r',
@@ -78,19 +74,25 @@ DEFAULT = {
     }
 
 
-def regex(regex, function='search', replace='', isunicode='', flags='0', text=None):
+@worker(timeout=TIMEOUT)
+def run_regex(message):
     """
         Apply regex on text and return the results as a dictionary
     """
 
-    text = text or sys.stdin.read()
+    regex = message['regex']
+    function = message.get('function', 'search')
+    replace = message.get('replace', '')
+    isunicode = message.get('isunicode', False)
+    flags = int(message.get('flags', 0))
+    text = message.get('text', None)
 
     if isunicode:
         text = text.decode(ENCODING)
         regex = regex.decode(ENCODING)
         replace = regex.decode(ENCODING)
 
-    pattern = re.compile(regex, flags=int(flags))
+    pattern = re.compile(regex, flags=flags)
 
     try:
         if 'sub' in function:
@@ -102,7 +104,7 @@ def regex(regex, function='search', replace='', isunicode='', flags='0', text=No
             raise e
         sys.exit(u'Error in your regular expression: %s' % e)
 
-    out = {}
+    out = {'match': bool(result)}
 
     if result:
         if hasattr(result, 'group'):
@@ -110,7 +112,7 @@ def regex(regex, function='search', replace='', isunicode='', flags='0', text=No
             out['groupdict'] = pformat(result.groupdict())
             markers = result.span()
         else:
-            markers = (m.span() for m in re.finditer(regex, text, flags=int(flags)))
+            markers = (m.span() for m in re.finditer(regex, text, flags=flags))
             markers = (x for boundaries in markers for x in boundaries)
 
         out['markers'] = json.dumps(tuple(markers))
@@ -118,10 +120,11 @@ def regex(regex, function='search', replace='', isunicode='', flags='0', text=No
     return out
 
 
-
 # todo: allow arguments functions surch as maxsplit for split
 
-@get('/')
+app = Bottle()
+
+@app.get('/')
 @view('index')
 def index():
     ctx = dict(DEFAULT)
@@ -129,7 +132,7 @@ def index():
     return ctx
 
 
-@post('/')
+@app.post('/')
 @view('index')
 def index():
 
@@ -139,7 +142,7 @@ def index():
     text = forms.get('text', '').decode('utf-8')
     replace = forms.get('replace', '')
     is_unicode =  'u' * bool(forms.get('is_unicode', False))
-    is_raw =  'r' * bool(forms.get('is_raw', False))
+    is_raw = 'r' * bool(forms.get('is_raw', False))
     function = forms.get('function', 'search')
 
     set_flags = dict((flag, bool(forms.get(flag))) for flag in FLAGS)
@@ -171,11 +174,11 @@ def index():
                            """
             return ctx
 
-        params = RUN_REGEX_SCRIPT_PARAMS % ctx
-        command = (u"python %s %s" % (RUN_REGEX_SCRIPT, params)).encode(ENCODING)
-        r = envoy.run(command, data=text.encode(ENCODING), timeout=TIMEOUT)
+        app.regex_process.put(ctx)
 
-        if r.status_code == -15:
+        try:
+            res = app.regex_process.get(True)
+        except run_regex.TimeoutError:
             ctx['error'] = u"""
                                 This regex took too much time to process. If
                                 you want to experiment with heavy regexes,
@@ -183,10 +186,13 @@ def index():
                                 tester, set the timeout to None and run it
                                 on your machine.
                             """
-        elif r.std_err:
-           ctx['error'] =  r.std_err
+        except Exception as e:
+            ctx['error'] = unicode(e)
         else:
-            ctx.update(json.loads(r.std_out))
+            if isinstance(res, Exception):
+                ctx['error'] = unicode(res)
+            else:
+                ctx.update(res)
 
         if flags != 0:
             ctx['flags_param'] = ", flags=" + '|'.join('re.' + flag for flag, on in set_flags if on)
@@ -195,26 +201,28 @@ def index():
     return ctx
 
 
-@route('/static/<filename>')
+@app.route('/static/<filename>')
 def server_static(filename):
     return static_file(filename, root=STATIC_FILES_ROOT)
 
 
-@route('/download/<filename:path>')
+@app.route('/download/<filename:path>')
 def download(filename):
     return static_file(filename, root=STATIC_FILES_ROOT, download=filename)
 
 
 @clize
-def main(host='localhost', port=9999, debug=DEBUG):
-    if debug:
-        bottle.debug(True)
-        run(host=host, port=port, reloader=True)
-    else:
-        webbrowser.open('http://%s:%s/' % (host, port))
-        run(host=host, port=port)
-
+def main(host='localhost', port=9999, debug=DEBUG, timeout=TIMEOUT):
+    try:
+        app.regex_process = run_regex.start()
+        if debug:
+            bottle.debug(True)
+            run(app, host=host, port=port, reloader=True)
+        else:
+            webbrowser.open('http://%s:%s/' % (host, port))
+            run(app, host=host, port=port)
+    finally:
+        app.regex_process.stop()
 
 if __name__ == "__main__":
-
     main(*sys.argv)

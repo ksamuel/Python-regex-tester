@@ -5,20 +5,12 @@
 # Note that while the regex tester test Python 2.7 regex idioms,
 # the code base itself has been made to be run on host with Python 2.6
 
+import sys
+
 try:
-    from core import DEBUG, bottle, webbrowser, run, sys, clize
+    from core import main
 except ImportError:
-    from regex_tester.core import DEBUG, bottle, webbrowser, run, sys, clize
-
-
-@clize
-def main(host='localhost', port=9999, debug=DEBUG):
-    if debug:
-        bottle.debug(True)
-        run(host=host, port=port, reloader=True)
-    else:
-        webbrowser.open('http://%s:%s/' % (host, port))
-        run(host=host, port=port)
+    from regex_tester.core import main
 
 
 main(*sys.argv)

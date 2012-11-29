@@ -37,9 +37,9 @@ It uses:
 - the `Blueprint CSS`_ framework
 - the jQuery_ javascript framework
 
-But all of them are already provided, the whole thing being less than 500 ko. 
+But all of them are already provided, the whole thing being less than 500 ko.
 
-There is even a stand alone one file version in the static folder.
+There is even a stand alone one file version in the static folder. Although it's not the exact same version (the regex is not executed in separate process), it has the same features.
 
 Since the project was initially only for us to use, it's taking advantages of a few advanced CSS selectors and some HTML 5 goodies. Make sure you have an up to date browser.
 
@@ -53,8 +53,6 @@ What it lacks
 
 I do accept pull requests :-)
 
-If it ever prove stable and usefull, I may package it. But the program is so easy to start that it may be overkill.
-
 Licence
 ===========
 
@@ -64,7 +62,7 @@ Honestly, only because that's the first FOSS licence I could find a text copy of
 
 
 .. _Python: http://www.python.org/
-.. _Bottle: http://bottlepy.org   
+.. _Bottle: http://bottlepy.org
 .. _JQuery: http://jquery.com/
 .. _Blueprint CSS: http://blueprintcss.org/
 .. _demo: http://ksamuel.pythonanywhere.com/

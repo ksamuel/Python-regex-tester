@@ -1,4 +1,3 @@
-<html>
 <head>
     <title>Python 2.7+ Regex Tester</title>
 
@@ -198,19 +197,18 @@
       </dd>
     %end
 
-    %if group or groupdict:
-
-      %if group:
+    %if group:
       <dt>match.group():</dt>
       <dd><code>{{ group }}</code></dd>
-      %end
-      %if groupdict:
+    %end
+    %if groupdict:
       <dt>match.groupdict():</dt>
       <dd><code>{{ groupdict }}</code></dd>
-      %end
+    %end
 
     </dl>
-    %else:
+
+    %if not match:
 
         %if not error and regex:
         <p class='notice'>No match</p>
@@ -219,7 +217,7 @@
     %end
 
     %if error:
-    <p class="error">{{ error }}</p>
+      <p class="error">{{ error }}</p>
     %end
 </div>
 
@@ -683,9 +681,8 @@ octal escapes are always at most three digits in length.&lt;<br>
         The <a href="http://www.python.org/">Python</a> regex tester use
         <a href="http://bottlepy.org">Bottle</a>,
         <a href="http://blueprintcss.org/">Bluepring CSS</a>,
-        <a href="http://jquery.com/">jQuery</a>,
-        <a href="https://github.com/epsy/clize">clize</a>
-        and <a href="https://github.com/kennethreitz/envoy">envoy</a> -
+        <a href="http://jquery.com/">jQuery</a> and
+        <a href="https://github.com/epsy/clize">clize</a> -
         Hosted on <a href="http://pythonanywhere.com">Python Anywhere</a>
     </p>
     <p>
