@@ -4025,7 +4025,7 @@ def index():
             replace = replace.encode('utf-8')
 
         try:
-            pattern = re.compile(regex, flags=flags)
+            pattern = re.compile(regex, flags=int(flags))
             if 'sub' in function:
                 result = getattr(re, function)(pattern, replace, text)
 
@@ -4046,7 +4046,7 @@ def index():
                 groupdict = pformat(result.groupdict())
                 markers = result.span()
             else:
-                markers = (m.span() for m in re.finditer(regex, text, flags=flags))
+                markers = (m.span() for m in re.finditer(regex, text, flags=int(flags)))
                 markers = (x for boundaries in markers for x in boundaries)
 
             markers = json.dumps(tuple(markers))

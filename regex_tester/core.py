@@ -110,7 +110,7 @@ def regex(regex, function='search', replace='', isunicode='', flags='0', text=No
             out['groupdict'] = pformat(result.groupdict())
             markers = result.span()
         else:
-            markers = (m.span() for m in re.finditer(regex, text, flags=flags))
+            markers = (m.span() for m in re.finditer(regex, text, flags=int(flags)))
             markers = (x for boundaries in markers for x in boundaries)
 
         out['markers'] = json.dumps(tuple(markers))
